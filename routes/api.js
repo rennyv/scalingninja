@@ -36,7 +36,7 @@ router.route('/posts')
 
 		//TODO get all the posts in the database
 		res.send({message:"TODO get all the posts in the database"});
-	})
+	});
 
 //api for a specfic post
 router.route('/posts/:id')
@@ -51,7 +51,7 @@ router.route('/posts/:id')
 	})
 
 	.delete(function(req,res){
-		return res.send({message:'TODO delete an existing post by using param ' + req.param.id})
+		return res.send({message:'TODO delete an existing post by using param ' + req.param.id});
 	});
 
 module.exports = router;
