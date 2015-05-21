@@ -1,3 +1,4 @@
+var config = require('./../config');
 var express = require('express');
 var router = express.Router();
 
@@ -16,7 +17,7 @@ function isAuthenticated (req, res, next) {
 	}
 
 	// if the user is not authenticated then redirect him to the login page
-	return res.redirect('/#login');
+	return res.redirect('/login');
 };
 
 //Register the authentication middleware
@@ -53,5 +54,12 @@ router.route('/posts/:id')
 	.delete(function(req,res){
 		return res.send({message:'TODO delete an existing post by using param ' + req.param.id});
 	});
+
+router.route('/config')
+	.get(function(req,res){
+		return res.send(config);
+	});
+
+
 
 module.exports = router;
