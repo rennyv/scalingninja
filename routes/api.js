@@ -55,11 +55,4 @@ router.route('/posts/:id')
 		return res.send({message:'TODO delete an existing post by using param ' + req.param.id});
 	});
 
-router.route('/config')
-	.get(function(req,res){
-		return res.send(config);
-	});
-
-
-
 module.exports = router;
