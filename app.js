@@ -9,6 +9,7 @@ var config = require('./config');
 
 
 require('./models/user');
+require('./models/follower');
 var mongoose = require('mongoose');
 mongoose.connect(config.dbConnection);
 var session = require('express-session');

@@ -6,6 +6,7 @@ var professionSchema = mongoose.Schema({
 });
 
 var followerSchema = mongoose.Schema({
+	name: String,
 	type: String,
 	race: String,
 	gender: String,

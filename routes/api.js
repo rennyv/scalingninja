@@ -1,6 +1,8 @@
 var config = require('./../config');
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var Follower = mongoose.model('Follower');
 
 //Used for routes that must be authenticated.
 function isAuthenticated (req, res, next) {
@@ -21,22 +23,30 @@ function isAuthenticated (req, res, next) {
 };
 
 //Register the authentication middleware
-router.use('/posts', isAuthenticated);
+router.use('/followers', isAuthenticated);
 
 //api for all posts
-router.route('/posts')
+router.route('/followers')
 	
 	//create a new post
 	.post(function(req, res){
-
-		//TODO create a new post in the database
-		res.send({message:"TODO create a new post in the database"});
+		var follower = new Follower();
+		follower.name = "Hello"
+		follower.save(function(err, follower) {
+			if (err){
+				return res.send(500, err);
+			}
+			return res.json(follower);
+		});
 	})
 
 	.get(function(req, res){
-
-		//TODO get all the posts in the database
-		res.send({message:"TODO get all the posts in the database"});
+			Follower.find(function(err, followers){
+				if(err){
+					return res.send(500, err);
+				}
+				return res.send(200,followers);
+			});
 	});
 
 //api for a specfic post
