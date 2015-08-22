@@ -10,6 +10,8 @@ var config = require('./config');
 
 require('./models/user');
 require('./models/character');
+require('./models/post');
+
 var mongoose = require('mongoose');
 mongoose.connect(config.dbConnection);
 var session = require('express-session');
