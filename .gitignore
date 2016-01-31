@@ -28,3 +28,7 @@ node_modules
 
 # vscode
 .settings
+.vscode
+
+#private files
+private

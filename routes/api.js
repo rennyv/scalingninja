@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Post = mongoose.model('Post');
+var Character = mongoose.model('Character');
 
 //Used for routes that must be authenticated.
 function isAuthenticated (req, res, next) {
@@ -21,6 +22,47 @@ function isAuthenticated (req, res, next) {
 	// if the user is not authenticated then redirect him to the login page
 	return res.redirect('/login');
 };
+
+
+router.use('/character', isAuthenticated);
+
+//api for characters
+router.route('/character')
+	.post(function(req, res){
+		var character = new Character();
+		character.name = req.body.name;
+		character.owner = req.user._id;
+		
+		character.save(function(err, character) {
+			if (err){
+				return res.send(500, err);
+			}
+
+        Character.find({})
+            //.populate('owner', "username")
+            .exec(function(error, characters) {
+                console.log(JSON.stringify(characters, null, "\t"))
+            })
+    });
+		
+		return res.json(character);
+		
+	})
+    .get(function(req, res){
+        Character.find(function(err, characters){
+            if(err){
+                return res.send(500, err);
+            }
+            return res.status(200).send(characters);
+        })
+    })
+    .delete(function(req, res){
+       Character.remove({}, function(err) {
+			if (err)
+				res.send(err);
+			res.json("deleted :(");
+		}); 
+    });
 
 //Register the authentication middleware
 router.use('/posts', isAuthenticated);
